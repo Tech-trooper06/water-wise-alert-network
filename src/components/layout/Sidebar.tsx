@@ -1,19 +1,23 @@
 
 import React from 'react';
-import { Gauge, DropletIcon, Database, Monitor, Smartphone } from 'lucide-react';
+import { Gauge, DropletIcon, Database, Monitor, Smartphone, Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useLocation, Link } from 'react-router-dom';
 
 interface NavItemProps {
   icon: React.ReactNode;
   title: string;
-  active?: boolean;
+  to: string;
 }
 
-const NavItem = ({ icon, title, active = false }: NavItemProps) => {
+const NavItem = ({ icon, title, to }: NavItemProps) => {
+  const location = useLocation();
+  const active = location.pathname === to;
+
   return (
     <li>
-      <a
-        href="#"
+      <Link
+        to={to}
         className={cn(
           "flex items-center p-3 rounded-md transition-colors",
           active 
@@ -23,7 +27,7 @@ const NavItem = ({ icon, title, active = false }: NavItemProps) => {
       >
         {icon}
         <span className="ml-3">{title}</span>
-      </a>
+      </Link>
     </li>
   );
 };
@@ -37,23 +41,32 @@ const Sidebar = () => {
             <NavItem 
               icon={<Gauge className="h-5 w-5" />} 
               title="Dashboard" 
-              active 
+              to="/"
+            />
+            <NavItem 
+              icon={<Package className="h-5 w-5" />} 
+              title="Material Tracking" 
+              to="/material-tracking"
             />
             <NavItem 
               icon={<DropletIcon className="h-5 w-5" />} 
               title="Water Quality" 
+              to="/water-quality"
             />
             <NavItem 
               icon={<Database className="h-5 w-5" />} 
               title="Data History" 
+              to="/data-history"
             />
             <NavItem 
               icon={<Monitor className="h-5 w-5" />} 
               title="System Status" 
+              to="/system-status"
             />
             <NavItem 
               icon={<Smartphone className="h-5 w-5" />} 
               title="Mobile Alerts" 
+              to="/mobile-alerts"
             />
           </ul>
         </nav>
