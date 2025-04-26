@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { Chart } from '@/components/ui/chart';
+import { ChartContainer } from '@/components/ui/chart';
 
 const mockData = [
   { name: 'Week 1', cement: 100, steel: 150, bricks: 2000 },
@@ -18,7 +18,13 @@ const MaterialUsageChart = () => {
         <CardTitle className="text-base">Material Usage Trends</CardTitle>
       </CardHeader>
       <CardContent>
-        <Chart>
+        <ChartContainer
+          config={{
+            cement: { color: '#94a3b8' },
+            steel: { color: '#64748b' },
+            bricks: { color: '#475569' },
+          }}
+        >
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={mockData}>
               <XAxis dataKey="name" />
@@ -29,7 +35,7 @@ const MaterialUsageChart = () => {
               <Bar dataKey="bricks" fill="#475569" name="Bricks (pieces)" />
             </BarChart>
           </ResponsiveContainer>
-        </Chart>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
